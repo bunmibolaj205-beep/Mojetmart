@@ -1,658 +1,382 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+// =====================================================
+// TRENDING FINDS
+// Product Database + Website Functions
+// =====================================================
+
+
+// =====================================================
+// PRODUCT DATABASE
+// =====================================================
+
+const products = [
+
+  {
+    id: "wireless-earbuds",
+    name: "Wireless Earbuds",
+    category: "Audio",
+    description: "Compact wireless earbuds for everyday listening and calls.",
+    badge: "Popular",
+    image: "assets/images/wireless-earbuds.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "bluetooth-speaker",
+    name: "Portable Bluetooth Speaker",
+    category: "Audio",
+    description: "A portable speaker concept for music around the home or outdoors.",
+    badge: "Trending",
+    image: "assets/images/bluetooth-speaker.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "usb-c-charger",
+    name: "USB-C Fast Charger",
+    category: "Power",
+    description: "A compact USB-C charging option for compatible devices.",
+    badge: "Useful",
+    image: "assets/images/usb-c-charger.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "power-bank",
+    name: "Portable Power Bank",
+    category: "Power",
+    description: "Portable battery power for compatible mobile devices.",
+    badge: "Popular",
+    image: "assets/images/power-bank.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "phone-stand",
+    name: "Adjustable Phone Stand",
+    category: "Mobile",
+    description: "An adjustable stand concept for hands-free phone viewing.",
+    badge: "Useful",
+    image: "assets/images/phone-stand.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "wireless-charger",
+    name: "Wireless Charging Pad",
+    category: "Mobile",
+    description: "A charging-pad concept for compatible wireless-charging devices.",
+    badge: "Trending",
+    image: "assets/images/wireless-charger.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "gaming-headset",
+    name: "Gaming Headset",
+    category: "Gaming",
+    description: "An over-ear gaming headset concept for compatible consoles and computers.",
+    badge: "Gaming",
+    image: "assets/images/gaming-headset.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "gaming-controller",
+    name: "Wireless Gaming Controller",
+    category: "Gaming",
+    description: "A wireless controller concept for compatible gaming systems.",
+    badge: "Popular",
+    image: "assets/images/gaming-controller.svg",
+    retailerUrl: "#"
+  },
+
+  {
+    id: "smart-light",
+    name: "Smart LED Light",
+    category: "Smart Home",
+    description: "A smart lighting concept for compatible smart-home setups.",
+    badge: "Smart Home",
+    image: "assets/images/smart-light.svg",
+    retailerUrl: "#"
+  },
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {
+    id: "smart-plug",
+    name: "Smart Plug",
+    category: "Smart Home",
+    description: "A smart plug concept for compatible home devices.",
+    badge: "Useful",
+    image: "assets/images/smart-plug.svg",
+    retailerUrl: "#"
+  },
 
-    <title>Trending Finds | Tech & Gadget Discoveries</title>
+  {
+    id: "phone-tripod",
+    name: "Phone Tripod",
+    category: "Creator",
+    description: "A phone tripod concept for photos, video and hands-free recording.",
+    badge: "Creator",
+    image: "assets/images/phone-tripod.svg",
+    retailerUrl: "#"
+  },
 
-    <meta
-        name="description"
-        content="Discover trending tech, gadgets, accessories, smart home products, gaming gear, and creator tools worth checking out."
-    >
+  {
+    id: "led-ring-light",
+    name: "LED Ring Light",
+    category: "Creator",
+    description: "A ring-light concept for video calls, photos and content creation.",
+    badge: "Creator",
+    image: "assets/images/led-ring-light.svg",
+    retailerUrl: "#"
+  }
 
-    <meta
-        name="keywords"
-        content="tech gadgets, trending gadgets, tech accessories, gaming gadgets, smart home, creator gear, Amazon gadgets"
-    >
+];
 
-    <meta name="author" content="Trending Finds">
 
-    <meta property="og:title" content="Trending Finds | Tech & Gadgets">
-    <meta
-        property="og:description"
-        content="Discover tech and gadgets worth knowing."
-    >
-    <meta property="og:type" content="website">
+// =====================================================
+// WEBSITE FUNCTIONS
+// =====================================================
 
-    <link rel="stylesheet" href="css/style.css">
-</head>
+document.addEventListener("DOMContentLoaded", () => {
 
-<body>
+  const grid =
+    document.getElementById("productGrid");
 
-    <!-- ================= HEADER ================= -->
+  const search =
+    document.getElementById("searchInput");
 
-    <header class="site-header">
+  const empty =
+    document.getElementById("noResults");
 
-        <div class="container header-inner">
+  const year =
+    document.getElementById("year");
 
-            <a href="index.html" class="logo">
-                Trending <span>Finds</span>
-            </a>
+  const menu =
+    document.getElementById("menuBtn");
 
-            <button
-                class="menu-toggle"
-                id="menuToggle"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-            >
-                ☰
-            </button>
+  const nav =
+    document.getElementById("mainNav");
 
-            <nav class="main-nav" id="mainNav">
 
-                <a href="index.html" class="active">Home</a>
+  let category = "All";
 
-                <a href="#categories">Categories</a>
 
-                <a href="#trending">Trending</a>
+  // ---------------------------------------------------
+  // CURRENT YEAR
+  // ---------------------------------------------------
 
-                <a href="about.html">About</a>
+  if (year) {
 
-                <a href="contact.html">Contact</a>
+    year.textContent =
+      new Date().getFullYear();
 
-            </nav>
+  }
 
-        </div>
 
-    </header>
+  // ---------------------------------------------------
+  // SECURITY: ESCAPE HTML
+  // ---------------------------------------------------
 
+  function escapeHTML(value) {
 
-    <!-- ================= MAIN ================= -->
+    return String(value).replace(
+      /[&<>"']/g,
+      character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[character])
+    );
 
-    <main>
+  }
 
-        <!-- ================= HERO ================= -->
 
-        <section class="hero">
+  // ---------------------------------------------------
+  // DISPLAY PRODUCTS
+  // ---------------------------------------------------
 
-            <div class="container hero-content">
+  function renderProducts() {
 
-                <div class="hero-text">
+    if (!grid) {
+      return;
+    }
 
-                    <span class="eyebrow">
-                        TECH & GADGETS
-                    </span>
 
-                    <h1>
-                        Discover the tech and gadgets worth knowing.
-                    </h1>
+    const query =
+      (search?.value || "")
+      .trim()
+      .toLowerCase();
 
-                    <p>
-                        Explore trending gadgets, useful tech accessories,
-                        gaming gear, smart home devices, and creator tools
-                        we think are worth checking out.
-                    </p>
 
-                    <div class="hero-buttons">
+    const filteredProducts =
+      products.filter(product => {
 
-                        <a href="#trending" class="btn btn-primary">
-                            Explore Trending Finds
-                        </a>
+        const matchesCategory =
+          category === "All" ||
+          product.category === category;
 
-                        <a href="#categories" class="btn btn-secondary">
-                            Browse Categories
-                        </a>
 
-                    </div>
+        const searchableText =
+          [
+            product.name,
+            product.category,
+            product.description
+          ]
+          .join(" ")
+          .toLowerCase();
 
-                </div>
 
-            </div>
+        return (
+          matchesCategory &&
+          searchableText.includes(query)
+        );
 
-        </section>
+      });
 
 
-        <!-- ================= DISCLOSURE ================= -->
+    grid.innerHTML =
+      filteredProducts.map(product => `
 
-        <section class="affiliate-notice">
+        <article class="card">
 
-            <div class="container">
+          <a
+            href="product.html?id=${encodeURIComponent(product.id)}"
+            class="card-link">
 
-                <p>
-                    <strong>Affiliate Disclosure:</strong>
-                    Some links on Trending Finds may be affiliate links.
-                    If you purchase through an eligible link, we may earn
-                    a commission at no additional cost to you.
-                </p>
+            <div class="product-image">
 
-                <a href="affiliate-disclosure.html">
-                    Learn more
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= SEARCH ================= -->
-
-        <section class="search-section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">
-                        FIND YOUR NEXT GADGET
-                    </span>
-
-                    <h2>
-                        What are you looking for?
-                    </h2>
-
-                </div>
-
-                <div class="search-box">
-
-                    <label for="searchInput" class="visually-hidden">
-                        Search gadgets
-                    </label>
-
-                    <input
-                        type="search"
-                        id="searchInput"
-                        placeholder="Search tech, gadgets, accessories..."
-                        autocomplete="off"
-                    >
-
-                    <button
-                        type="button"
-                        id="searchButton"
-                        aria-label="Search"
-                    >
-                        Search
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= CATEGORIES ================= -->
-
-        <section
-            class="categories-section"
-            id="categories"
-        >
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">
-                        EXPLORE
-                    </span>
-
-                    <h2>
-                        Browse Categories
-                    </h2>
-
-                    <p>
-                        Find useful products based on what you're interested in.
-                    </p>
-
-                </div>
-
-
-                <div class="category-grid">
-
-                    <button
-                        class="category-card"
-                        data-category="Audio"
-                    >
-
-                        <span class="category-icon">
-                            🎧
-                        </span>
-
-                        <h3>Audio</h3>
-
-                        <p>
-                            Headphones, earbuds and speakers.
-                        </p>
-
-                    </button>
-
-
-                    <button
-                        class="category-card"
-                        data-category="Power"
-                    >
-
-                        <span class="category-icon">
-                            🔋
-                        </span>
-
-                        <h3>Power</h3>
-
-                        <p>
-                            Chargers, power banks and useful accessories.
-                        </p>
-
-                    </button>
-
-
-                    <button
-                        class="category-card"
-                        data-category="Mobile"
-                    >
-
-                        <span class="category-icon">
-                            📱
-                        </span>
-
-                        <h3>Mobile</h3>
-
-                        <p>
-                            Smartphone accessories and mobile tech.
-                        </p>
-
-                    </button>
-
-
-                    <button
-                        class="category-card"
-                        data-category="Gaming"
-                    >
-
-                        <span class="category-icon">
-                            🎮
-                        </span>
-
-                        <h3>Gaming</h3>
-
-                        <p>
-                            Gaming accessories and equipment.
-                        </p>
-
-                    </button>
-
-
-                    <button
-                        class="category-card"
-                        data-category="Smart Home"
-                    >
-
-                        <span class="category-icon">
-                            🏠
-                        </span>
-
-                        <h3>Smart Home</h3>
-
-                        <p>
-                            Smart devices for your home.
-                        </p>
-
-                    </button>
-
-
-                    <button
-                        class="category-card"
-                        data-category="Creator"
-                    >
-
-                        <span class="category-icon">
-                            📸
-                        </span>
-
-                        <h3>Creator</h3>
-
-                        <p>
-                            Tools for content creators and creators.
-                        </p>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= TRENDING PRODUCTS ================= -->
-
-        <section
-            class="products-section"
-            id="trending"
-        >
-
-            <div class="container">
-
-                <div class="section-heading section-heading-row">
-
-                    <div>
-
-                        <span class="eyebrow">
-                            TRENDING NOW
-                        </span>
-
-                        <h2>
-                            Trending Finds
-                        </h2>
-
-                        <p>
-                            Tech and gadgets selected for discovery.
-                        </p>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        id="clearFilters"
-                        class="text-button"
-                    >
-                        View All
-                    </button>
-
-                </div>
-
-
-                <!-- Products are loaded by JavaScript -->
-
-                <div
-                    class="product-grid"
-                    id="productGrid"
-                >
-
-                    <div class="loading-message">
-                        Loading products...
-                    </div>
-
-                </div>
-
-
-                <!-- No results -->
-
-                <div
-                    class="no-results"
-                    id="noResults"
-                    hidden
-                >
-
-                    <h3>
-                        No products found
-                    </h3>
-
-                    <p>
-                        Try another search or choose a different category.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= WHY TRENDING FINDS ================= -->
-
-        <section class="why-section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">
-                        WHY TRENDING FINDS?
-                    </span>
-
-                    <h2>
-                        Simple. Useful. Worth discovering.
-                    </h2>
-
-                </div>
-
-
-                <div class="features-grid">
-
-                    <article class="feature-card">
-
-                        <span class="feature-icon">
-                            🔎
-                        </span>
-
-                        <h3>
-                            Easy Discovery
-                        </h3>
-
-                        <p>
-                            Browse products by category or search for
-                            something specific.
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <span class="feature-icon">
-                            ⚡
-                        </span>
-
-                        <h3>
-                            Trending Tech
-                        </h3>
-
-                        <p>
-                            Discover interesting gadgets and technology
-                            worth checking out.
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <span class="feature-icon">
-                            🔗
-                        </span>
-
-                        <h3>
-                            Shop on Amazon
-                        </h3>
-
-                        <p>
-                            When available, product links can take you
-                            directly to the relevant Amazon product page.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= NEWSLETTER ================= -->
-
-        <section class="newsletter-section">
-
-            <div class="container newsletter-box">
-
-                <div>
-
-                    <span class="eyebrow">
-                        STAY UPDATED
-                    </span>
-
-                    <h2>
-                        Discover more trending tech.
-                    </h2>
-
-                    <p>
-                        Subscribe to hear about new gadget discoveries
-                        and useful tech.
-                    </p>
-
-                </div>
-
-
-                <form
-                    id="newsletterForm"
-                    class="newsletter-form"
-                >
-
-                    <label
-                        for="newsletterEmail"
-                        class="visually-hidden"
-                    >
-                        Email address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="newsletterEmail"
-                        name="email"
-                        placeholder="Your email address"
-                        required
-                    >
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                    >
-                        Subscribe
-                    </button>
-
-                </form>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="site-footer">
-
-        <div class="container">
-
-            <div class="footer-grid">
-
-                <!-- Brand -->
-
-                <div class="footer-brand">
-
-                    <a href="index.html" class="logo">
-                        Trending <span>Finds</span>
-                    </a>
-
-                    <p>
-                        Discover the tech and gadgets worth knowing.
-                    </p>
-
-                </div>
-
-
-                <!-- Explore -->
-
-                <div class="footer-column">
-
-                    <h3>
-                        Explore
-                    </h3>
-
-                    <a href="index.html">
-                        Home
-                    </a>
-
-                    <a href="#categories">
-                        Categories
-                    </a>
-
-                    <a href="#trending">
-                        Trending Finds
-                    </a>
-
-                </div>
-
-
-                <!-- Information -->
-
-                <div class="footer-column">
-
-                    <h3>
-                        Information
-                    </h3>
-
-                    <a href="about.html">
-                        About Us
-                    </a>
-
-                    <a href="affiliate-disclosure.html">
-                        Affiliate Disclosure
-                    </a>
-
-                    <a href="privacy.html">
-                        Privacy Policy
-                    </a>
-
-                    <a href="terms.html">
-                        Terms & Conditions
-                    </a>
-
-                </div>
-
-
-                <!-- Contact -->
-
-                <div class="footer-column">
-
-                    <h3>
-                        Contact
-                    </h3>
-
-                    <a href="contact.html">
-                        Contact Us
-                    </a>
-
-                </div>
+              <img
+                src="${escapeHTML(product.image)}"
+                alt="${escapeHTML(product.name)}">
 
             </div>
 
 
-            <div class="footer-bottom">
+            <div class="card-body">
 
-                <p>
-                    &copy;
-                    <span id="currentYear"></span>
-                    Trending Finds. All rights reserved.
-                </p>
+              <span class="badge">
+                ${escapeHTML(product.badge)}
+              </span>
 
-                <p>
-                    As an Amazon Associate, we may earn from qualifying purchases.
-                </p>
+
+              <small>
+                ${escapeHTML(product.category)}
+              </small>
+
+
+              <h3>
+                ${escapeHTML(product.name)}
+              </h3>
+
+
+              <p>
+                ${escapeHTML(product.description)}
+              </p>
+
+
+              <span class="text-link">
+                View details →
+              </span>
 
             </div>
 
-        </div>
+          </a>
 
-    </footer>
+        </article>
+
+      `).join("");
 
 
-    <!-- ================= JAVASCRIPT ================= -->
+    if (empty) {
 
-    <script src="js/products.js"></script>
-    <script src="js/app.js"></script>
+      empty.hidden =
+        filteredProducts.length !== 0;
 
-</body>
-</html>
+    }
+
+  }
+
+
+  // ---------------------------------------------------
+  // CATEGORY FILTER
+  // ---------------------------------------------------
+
+  document
+    .querySelectorAll(".category-btn")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(".category-btn")
+            .forEach(btn => {
+
+              btn.classList.remove(
+                "active"
+              );
+
+            });
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          category =
+            button.dataset.category;
+
+
+          renderProducts();
+
+        }
+      );
+
+    });
+
+
+  // ---------------------------------------------------
+  // SEARCH
+  // ---------------------------------------------------
+
+  if (search) {
+
+    search.addEventListener(
+      "input",
+      renderProducts
+    );
+
+  }
+
+
+  // ---------------------------------------------------
+  // MOBILE MENU
+  // ---------------------------------------------------
+
+  if (menu && nav) {
+
+    menu.addEventListener(
+      "click",
+      () => {
+
+        nav.classList.toggle(
+          "open"
+        );
+
+      }
+    );
+
+  }
+
+
+  // ---------------------------------------------------
+  // INITIAL PRODUCT DISPLAY
+  // ---------------------------------------------------
+
+  renderProducts();
+
+});
