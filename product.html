@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | MojetMart</title>
+  <meta name="description" content="Browse product categories on MojetMart - Electronics, Fashion, Beauty, Gaming and more.">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #f59e0b;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 14px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #111827, #1e293b);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: auto;
+      color: #dbe4f0;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #667085;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+
+    .category {
+      background: white;
+      padding: 22px 12px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      text-decoration: none;
+      color: #172033;
+      transition: transform 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+    }
+
+    .category-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .category h3 {
+      font-size: 15px;
+    }
+
+    footer {
+      background: #111827;
+      color: #cbd5e1;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer p {
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 850px) {
+      .categories {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 550px) {
+      nav a {
+        display: none;
+      }
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="logo">Mojet<span>Mart</span></div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="product.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Our Product Categories</h1>
+    <p>Browse popular categories and discover useful products available on Amazon.</p>
+  </section>
+
+  <section class="container">
+    <div class="section-title">
+      <h2>Shop by Category</h2>
+      <p>Click any category to explore products on Amazon</p>
+    </div>
+
+    <div class="categories">
+      <a href="https://www.amazon.com/s?k=electronics&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">📱</div>
+        <h3>Electronics</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=computers&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">💻</div>
+        <h3>Computers</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=home+kitchen&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">🏠</div>
+        <h3>Home & Kitchen</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=fashion&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">👕</div>
+        <h3>Fashion</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=beauty&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">💄</div>
+        <h3>Beauty</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=gaming&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">🎮</div>
+        <h3>Gaming</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=books&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">📚</div>
+        <h3>Books</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=sports+fitness&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">🏋️</div>
+        <h3>Sports</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=baby&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">👶</div>
+        <h3>Baby & Kids</h3>
+      </a>
+
+      <a href="https://www.amazon.com/s?k=automotive&tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">🚗</div>
+        <h3>Automotive</h3>
+      </a>
+
+      <a href="https://www.amazon.com/gp/bestsellers?tag=mojetmart001-20" class="category" target="_blank" rel="noopener">
+        <div class="category-icon">🛍️</div>
+        <h3>Deals & Best Sellers</h3>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="product.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p>© 2026 MojetMart. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
